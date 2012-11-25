@@ -29,6 +29,7 @@ app.configure(function() {
 	app.use(express.cookieParser('Usishi.Ebabil.2012'));
 	app.use(express.session({cookie:{ maxAge:60000}}));
   //app.use(usnlib({admin:'/adm',opens:['/static','/def'],Config.dbCnnString,modelName:'ghUser'}));
+  app.use(express.favicon(__dirname + '/static/favicon.ico', { maxAge: 2592000000 }));
   app.use(addPublicVariables);
   app.use(app.router);
    
