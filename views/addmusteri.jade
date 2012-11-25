@@ -1,0 +1,21 @@
+extends _layout
+block scripts
+  
+block styles
+  
+block content
+  input(type='text',placeholder='Müşteri Kısa Adı',name='musteri',style="width:95%")
+  input(type='text',placeholder='Resmi Ünvanı',name='musteri',style="width:95%")
+  input(type='text',placeholder='Vergi Dairesi',name='musteri',style="width:95%")  
+  input(type='text',placeholder='Vergi Numarası',name='musteri',style="width:95%")  
+  br
+  | Müşteri Adresi
+  br
+  textarea(placeholder='Müşteri Adresi',name='adress',rows=4,style="width:95%")  
+  br
+  div.double_divider
+  br
+  input(type='text',placeholder='Risk Limit',name='musteri',style="width:95%")
+  input(type='text',placeholder='Standart Vade',name='musteri',style="width:95%")    
+  a.btn.btn-primary(style="width:95%")
+    | Kaydet
