@@ -8,19 +8,16 @@ block content
     input#appendedInputButton(type='text',placeholder='Müşteri Adı',name='musteri',style="width:75%")
     a.btn(href='javascript:',style="width:15%")
       i.icon-search
-  ul
-    li
-      a.btn()
-       | Usishi Bilişim
-    li
-      a.btn()
-       | Göktuğ Bilişim
-    li
-      a.btn()
-       | Carrefour
-    li
-      a.btn()
-       | Merpa 
+  table.table    
+    - musteriler.forEach(function(musteri){    
+      tr
+        td
+          a.btn(href="/get/musteri/"+musteri._id)=musteri.name
+        td
+          a.btn(href="")
+            i.icon-remove-circle  
+            | &nbsp; Sil
+    - })
   div.double_divider 
     a.btn(style="width:90%",href="/add/musteri") 
       i.icon-plus-sign

@@ -1,5 +1,6 @@
 var express = require('express'),  
   router  = require('./lib/router'),  
+  ajax  = require('./lib/ajax'),  
   ourmodels = require('./lib/models'),
   mongoose = require('mongoose'),
 	http      = require('http');
@@ -9,6 +10,8 @@ var app = express();
 var Config = global.Config = require('./config').config;
 
 global.mdb = mongoose.createConnection('mongodb://ebabil:ebabil@mongodb.usishi.net/ebabildb');
+
+ourmodels.defineModels();
 
 function addPublicVariables(req, res, next){
   res.locals = {           
@@ -55,6 +58,8 @@ app.get('/', function(req, res) {
 
 app.get('/list/:page', router.lists);
 app.get('/add/:page', router.add);
+app.post('/ajax/:fname',ajax.functions);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
