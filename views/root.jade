@@ -1,0 +1,23 @@
+extends _layout
+block scripts
+  script(src='/static/js/page-root.js')
+block styles
+  
+block content
+  a.btn(style="width:90%",href="/list/musteri") 
+    i.icon-user 
+    | Müşteriler
+  br
+  br
+  a.btn(style="width:90%",href="/list/stok") 
+    i.icon-plus-sign 
+    | Stok
+  br
+  br  
+  a.btn(style="width:90%",href="/list/satis") Satış
+  br
+  br  
+  a.btn(style="width:90%",href="/list/alim") Alımlar
+  br
+  br  
+  a.btn(style="width:90%",href="/list/rapor") Raporlar
