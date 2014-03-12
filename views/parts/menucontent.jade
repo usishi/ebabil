@@ -1,0 +1,78 @@
+ul.nav.nav-list
+	li#menu100
+		a(href="/pg/dashboard")
+			i.icon-dashboard
+			span
+				| Dashboard
+	//hide4op
+	li#menu200
+		a.dropdown-toggle(href="#")
+			i.icon-cogs
+			span	
+				| Sistem Ayarları
+			b.arrow.icon-angle-down
+		ul.submenu
+			li#menu210
+				a(href="/pg/adsettings")
+					i.icon-double-angle-right
+					| Active Directory Ayarları
+			li#menu220
+				a(href="/pg/network")
+					i.icon-double-angle-right
+					| Ağ Şablonları				
+			li#menu230
+				a(href="/pg/resourceschema")
+					i.icon-double-angle-right
+					| Kaynak Şablonları
+			li#menu240
+				a(href="/pg/vdischema")
+					i.icon-double-angle-right
+					| VDI Şablonları		
+	//endhide4op
+	li#menu300
+		a.dropdown-toggle(href="#")
+			i.icon-desktop
+			span	
+				| VDI Yönetimi
+			b.arrow.icon-angle-down
+		ul.submenu
+			li#menu310
+				a(href="/pg/vdioperations")
+					i.icon-double-angle-right
+					| VDI Operasyonları
+			li#menu320
+				a(href="/pg/massop")
+					i.icon-double-angle-right
+					| Toplu İşlemler
+			li#menu330
+				a(href="/pg/tickets")
+					i.icon-double-angle-right
+					| Talepler		
+	//onlyusishi
+	//li#menu900
+		a.dropdown-toggle(href="#")
+			i.icon-fire
+			span	
+				| Usishi
+			b.arrow.icon-angle-down
+		ul.submenu
+			li#menu910
+				a(href="/pg/setup")
+					i.icon-double-angle-right
+					| Sistem Kurulum
+	//endonlyusishi
+	li#menu400
+		a.dropdown-toggle(href="#")
+			i.icon-list-alt
+			span	
+				| Sistem İzleme
+			b.arrow.icon-angle-down
+		ul.submenu
+			li#menu410
+				a(href="/pg/logs")
+					i.icon-double-angle-right
+					| İşlem Logları
+			//li#menu420
+				a(href="/pg/events")
+					i.icon-double-angle-right
+					| Geçmiş Görevler

@@ -1,23 +1,138 @@
 !!!5
 html
-  head
-    title=config.title
-    meta(name="viewport",content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0")
-    link(rel="apple-touch-icon",href="/static/apple-touch-icon.png")
-    link(rel='stylesheet', href='/static/css/bootstrap.css')
-    link(rel='stylesheet', href='/static/css/bootstrap-responsive.css')
-    link(rel='stylesheet', href='/static/jqtheme/'+config.jqTheme+'/jquery-ui-1.9.1.custom.css')
-    link(rel='stylesheet', href='/static/css/fonts.css')
-    link(rel='stylesheet', href='/static/css/main.css')
-    block styles
-    script(src='/static/js/jquery-1.8.2.min.js')
-    script(src='/static/js/jquery-ui-1.8.24.custom.min.js')
-    script(src='/static/js/bootstrap.js')
-    script(src='/static/js/main.js')      
-  
-    block scripts
-  body
-    div#header
-      include parts/topbar
-    div#content
-      block content
+	head
+		meta(HTTP-EQUIV="Pragma",CONTENT="no-cache")
+		meta(name="viewport",content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0")
+		meta(charset="utf-8")
+		//cssdebug
+		link(rel="stylesheet",href="/static/css/bootstrap.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/bootstrap-responsive.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/font-awesome.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/ace.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/ace-responsive.css",media="screen",rtype="text/css")
+		//endcssdebug
+		//if IE 7
+			link(rel="stylesheet",href="/static/css/font-awesome-ie7.css",media="screen",rtype="text/css")
+		//if lt IE 9
+			link(rel="stylesheet",href="/static/css/ace-ie.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/main.css",media="screen",rtype="text/css")		
+		link(rel="stylesheet",href="/static/css/jquery-ui-1.10.3.custom.css",media="screen",rtype="text/css")		
+		link(rel="stylesheet",href="/static/css/jquery.gritter.css",media="screen",rtype="text/css")		
+		block styles
+	body
+		div#wrap
+			div.navbar.navbar-inverse
+				div.navbar-inner
+					div.container-fluid(style="padding-right:0px;padding-left:40px;")
+						div.pull-left
+							a(href="/pg/dashboard")
+								img(src="/static/img/buluthan_logo_mini.png")					
+						ul.nav.ace-nav.pull-right
+							li.grey
+								a.dropdown-toggle(data-toggle="dropdown",href="#")
+									i.icon-tasks
+									span#jobicon
+								ul.pull-right.dropdown-navbar.dropdown-menu.dropdown-caret.dropdown-closer#joblist
+									
+							li.purple
+								a.dropdown-toggle(data-toggle="dropdown",href="#")
+									i.icon-warning-sign.icon-only#logicon
+									span.badge.badge-important
+								ul.pull-right.dropdown-navbar.navbar-pink.dropdown-menu.dropdown-caret.dropdown-closer(style="width:400px;")#loglist
+								
+							//li.green.hide
+								a.dropdown-toggle(data-toggle="dropdown",href="#")
+									i.icon-comment-alt.icon-only.icon-animated-vertical
+									| 5
+								ul.pull-right.dropdown-navbar.navbar-green.dropdown-menu.dropdown-caret.dropdown-closer
+									li.nav-header
+										i.icon-comment
+										| 5 not var
+										a.btn.button.btn-mini(href="#",onClick="$('#modal_AddComment').modal();") 
+											i.icon.icon-plus-sign 
+											| ekle
+									li
+										a
+											img.msg-photo(src="/static/avatars/avatar.png")
+											span.msg-body
+												span.msg-title
+													span.blue 
+														| Göktuğ :
+													| Selam dostum, yeni makinelere dikkat
+												span.msg-time
+													i.icon-time
+													span
+														| 1 dakika önce
+							li.light-blue.user-profile
+								a.user-menu.dropdown-toggle(data-toggle="dropdown",href="#")
+									//img.nav-user-photo(src="/static/avatars/user.jpg")
+									span#user_info
+										small
+											| Hoşgeldin,
+										| !{user.name}
+									i.icon-carret-down
+								ul.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer#user-menu
+									li
+										a(href="#",onClick="logoff();")
+											i.icon-off
+											| Sistemden Çıkış Yap						
+			div.container-fluid#main-container
+				a#menu-toggler(href="#")
+					span
+				div#sidebar
+					!{user.menu}
+				div.clearfix#main-content
+					div#breadcrumbs
+						ul.breadcrumb
+							block breadcrumb
+					div.clearfix#page-content				
+						div.page-header.positive-relative
+							h1
+								block pagetitle
+						div.row-fluid
+							block pagecontent
+		div#push
+	div#footer
+		div(style="padding:5px;text-align:center")
+			| Lisans Sahibi 
+			img(src="data:image/png;base64,#{Config.customer.customerlogo}")	
+			| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			| Geliştirici 
+			img(src="data:image/png;base64,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")
+
+			div.modal.hide.fade(style="heigth:70%")#modal_AddComment
+				div.modal-header
+					h5 Yeni Not Ekleme
+				div.modal-body			
+					div.row-fluid
+						div.span4
+							| Notunuzu Giriniz :
+						div.span6
+							input(type="text")	
+
+				div.modal-footer	
+					a.btn.btn-small.btn-primary(href="#",onClick="$('#modal_AddComment').modal('hide');") Vazgeç	
+					a.btn.btn-small.btn-primary(href="#",onClick="selectOU();") Kaydet					
+		div#usr.hide
+			!{user.encoded}
+	//jsdebug
+	script(src="/static/js/3rdParty/jquery-1.9.1.js",type="text/javascript")
+	script(src="/static/js/3rdParty/bootstrap.js",type="text/javascript")	
+	script(src="/static/js/3rdParty/jquery-ui-1.10.3.custom.js",type="text/javascript")
+	script(src="/static/js/3rdParty/jquery.ui.touch-punch.js",type="text/javascript")
+	script(src="/static/js/3rdParty/jquery.slimscroll.js",type="text/javascript")
+	script(src="/static/js/3rdParty/jquery.gritter.js",type="text/javascript")
+	script(src="/static/js/3rdParty/jq-blockui.js",type="text/javascript")
+	script(src="/static/js/3rdParty/ace-elements.js",type="text/javascript")
+	script(src="/static/js/3rdParty/ace.js",type="text/javascript")
+	script(src="/static/js/3rdParty/canvasloader.min.js",type="text/javascript")
+	script(src="/static/js/usishi.js",type="text/javascript") 
+	script(src="/static/js/buluthan.js",type="text/javascript") 
+	script(src="/static/js/guifunctions.js",type="text/javascript")
+	//endjsdebug
+	block scripts
+	script(type="text/javascript")
+		loadLogs();
+		loadJobs();
+
+		

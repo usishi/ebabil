@@ -1,0 +1,68 @@
+!!!5
+html
+	head
+		meta(name="viewport",content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0")
+		meta(charset="utf-8")
+		meta(HTTP-EQUIV="Pragma",CONTENT="no-cache")
+		//cssdebug
+		link(rel="stylesheet",href="/static/css/bootstrap.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/bootstrap-responsive.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/font-awesome.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/ace.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/ace-responsive.css",media="screen",rtype="text/css")
+		//endcssdebug
+		//if IE 7
+			link(rel="stylesheet",href="/static/css/font-awesome-ie7.css",media="screen",rtype="text/css")
+		//if lt IE 9
+			link(rel="stylesheet",href="/static/css/ace-ie.css",media="screen",rtype="text/css")
+		link(rel="stylesheet",href="/static/css/main.css",media="screen",rtype="text/css")		
+	body.login-layout
+		div.container-fluid#main-container
+			div#main-content
+				div.row-fluid
+					div.span12
+						div.center(style="vertical-align:bottom;background-color:white")
+							img(src="/static/img/logo.png")
+						div.login-container
+							div.center(style="vertical-align:bottom")
+								h3(style="color:#87CEEB;")
+									| Yönetici Girişi 
+							div.space-6
+							div.row-fluid
+								div.position-relative
+									div.visible.widget-box.no-border
+										div.widget-main
+											h4.header.blue.lighter.bigger
+												i.icon-coffee.green
+												| Lütfen Bilgilerinizi Giriniz
+											div.space-6
+											form
+												fieldset
+													label
+														span.block.input-icon.input-icon-right
+															input(type="text",placeholder="Kullanıcı Adı").span12#uname
+															i.icon-user
+													label
+														span.block.input-icon.input-icon-right
+															input(type="password",placeholder="Parola").span12#pwd
+															i.icon-lock
+													div.space
+													div.row-fluid
+														label.span4
+															input(type="checkbox")#savecookie
+															span.lbl Beni Hatırla
+														label.span4
+														a.span4.btn.btn-small.btn-primary(onclick="tryLogin(this);")#btn_login
+															i.icon-key
+															| Giriş
+													div.hidden.alert.alert-error#loginerr
+														
+	//jsdebug	
+	script(src="/static/js/3rdParty/jquery-1.9.1.js",type="text/javascript")
+	script(src="/static/js/usishi.js",type="text/javascript") 
+	//endjsdebug
+	script(type="text/javascript")
+		$(function() {
+			$('#pwd').onEnterKey(function(){  tryLogin(); } );
+			$('#uname').onEnterKey(function(){ tryLogin(); } );
+		});

@@ -1,15 +1,16 @@
 var express = require('express'),  
   router  = require('./lib/router'),  
-  ajax  = require('./lib/ajax'),  
+  ajaxfunctions  = require('./lib/ajax'),  
   ourmodels = require('./lib/models'),
   mongoose = require('mongoose'),
+  url           = require('url'),
 	http      = require('http');
 
 var app = express();
 
 var Config = global.Config = require('./config').config;
 
-global.mdb = mongoose.createConnection('mongodb://ebabil:ebabil@mongodb.usishi.net/ebabildb');
+global.mdb = mongoose.createConnection(Config.dbCnnString);
 
 ourmodels.defineModels();
 
@@ -51,15 +52,45 @@ app.configure('production', function () {
   	app.use(express.errorHandler());
 });
 
-
-app.get('/', function(req, res) {
-  res.render('root');
+app.all('/login',function(req,res){
+  res.render('login')
 });
 
-app.get('/list/:page', router.lists);
-app.get('/add/:page', router.add);
-app.post('/ajax/:fname',ajax.functions);
+app.all('/',function(req,res){
+  res.redirect('/pg/dashboard'); 
+});
 
+app.get('/pg/:page',function(req,res){
+  var prm=url.parse(req.url, true).query['e'];
+  if (prm==undefined){
+    prm='{}';
+  } else {
+    prm=JSON.stringify(querystring.parse((new Buffer(prm, 'base64').toString('utf8'))));
+  }
+  if (req.session.user==null){    //session user yokken
+    console.log("User YOK");
+    if (req.signedCookies.uname == undefined || req.signedCookies.pwd == undefined || req.signedCookies.ldapid == undefined){
+      res.redirect('/login'); //cookie de yok
+    } else { //cookie var login test
+      functions.loginCheck(req.signedCookies.uname,req.signedCookies.pwd,req.signedCookies.ldapid,function(obj){
+        console.log("APP  login check");
+        if(obj.canlogin){
+          req.session.user=obj.user;
+          res.render(req.params.page,{config : Config,
+            user : req.session.user,params:prm});
+        } else {
+          res.redirect('/login');
+        }
+      })
+    }
+  } else {
+    console.log("page:"+req.params.page);
+    res.render(req.params.page,{config : Config,
+      user : req.session.user,params:prm});
+  }
+});
+
+app.all('/ajax/:question',ajaxfunctions.ask);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
